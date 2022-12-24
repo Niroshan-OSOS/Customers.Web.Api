@@ -12,6 +12,33 @@ namespace Customers.Web.Api.Tests.Unit.Services.Foundations.Customers
 {
     public partial class CustomerServiceTests
     {
-      
+        [Fact]
+        public async Task ShouldThrowValidationExeptionOnAddIfCustomerIsNullAndLogItAsync()
+        {
+            //given
+            Customer nullCustomer = null;
+
+            var nullCustomerExeption =
+                new NullCustomerException();
+
+            var expectedCustomerValidationExeption =
+                new CustomerValidationException(nullCustomerExeption);
+
+            //when
+            ValueTask<Customer> addCustomerTask = this.customerService.AddCustomerAsync(nullCustomer);
+
+            // then
+            await Assert.ThrowsAsync<CustomerValidationException>(() =>
+                addCustomerTask.AsTask());
+
+            this.loggingBrokerMock.Verify(broker =>
+                broker.LogError(It.Is(SameExceptionAs(
+                    expectedCustomerValidationExeption))),
+                        Times.Once);
+
+            this.loggingBrokerMock.VerifyNoOtherCalls();
+            this.storageBrokerMock.VerifyNoOtherCalls();
+
+        }
     }
 }
