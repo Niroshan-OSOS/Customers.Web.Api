@@ -39,7 +39,7 @@ namespace Customers.Web.Api.Services.Customers
 
         public async ValueTask<Customer> AddCustomerAsync(Customer customer)
         {
-           throw new NotImplementedException();
+            return await storageBroker.InsertCustomerAsync(customer);
         }
 
     }
