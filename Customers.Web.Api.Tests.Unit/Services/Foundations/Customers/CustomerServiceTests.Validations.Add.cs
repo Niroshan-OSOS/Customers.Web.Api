@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xunit;
 
 namespace Customers.Web.Api.Tests.Unit.Services.Foundations.Customers
 {
@@ -25,11 +26,15 @@ namespace Customers.Web.Api.Tests.Unit.Services.Foundations.Customers
                 new CustomerValidationException(nullCustomerExeption);
 
             //when
-            ValueTask<Customer> addCustomerTask = this.customerService.AddCustomerAsync(nullCustomer);
+            ValueTask<Customer> addCustomerTask = 
+                this.customerService.AddCustomerAsync(nullCustomer);
+
+
 
             // then
             await Assert.ThrowsAsync<CustomerValidationException>(() =>
                 addCustomerTask.AsTask());
+
 
             this.loggingBrokerMock.Verify(broker =>
                 broker.LogError(It.Is(SameExceptionAs(

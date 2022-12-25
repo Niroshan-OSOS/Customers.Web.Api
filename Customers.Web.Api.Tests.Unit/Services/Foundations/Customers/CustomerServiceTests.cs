@@ -50,5 +50,6 @@ namespace Customers.Web.Api.Tests.Unit.Services.Foundations.Customers
         }
         private static Expression<Func<Xeption, bool>> SameExceptionAs(Xeption expectedException) =>
            actualException => actualException.SameExceptionAs(expectedException);
+
     }
 }

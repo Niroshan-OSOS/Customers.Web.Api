@@ -37,10 +37,12 @@ namespace Customers.Web.Api.Services.Customers
         //    return await storageBroker.InsertCustomerAsync(customer);
         //});
 
-        public async ValueTask<Customer> AddCustomerAsync(Customer customer)
+        public ValueTask<Customer> AddCustomerAsync(Customer customer)=>
+        TryCatch(async ()=>
         {
+            ValidateCustomerOnAdd(customer);
             return await storageBroker.InsertCustomerAsync(customer);
-        }
+        });
 
     }
 }
