@@ -50,14 +50,13 @@ namespace Customers.Web.Api.Services.Customers
         };
         private bool IsDateNotRecent(DateTimeOffset date)
         {
-            //DateTimeOffset currentDateTime =
-            //    this.dateTimeBroker.GetCurrentDateTimeOffset();
+            DateTimeOffset currentDateTime =
+                this.dateTimeBroker.GetCurrentDateTimeOffset();
 
-            //TimeSpan timeDifference = currentDateTime.Subtract(date);
-            //TimeSpan oneMinute = TimeSpan.FromMinutes(1);
+            TimeSpan timeDifference = currentDateTime.Subtract(date);
+            TimeSpan oneMinute = TimeSpan.FromMinutes(1);
 
-            //return timeDifference.Duration() > oneMinute;
-            return false;
+            return timeDifference.Duration() > oneMinute;
         }
 
         private static void Validate(params (dynamic Rule, string Parameter)[] validations)
