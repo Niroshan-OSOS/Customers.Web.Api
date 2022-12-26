@@ -95,71 +95,71 @@ namespace Customers.Web.Api.Tests.Unit.Services.Foundations.Customers
         //    this.storageBrokerMock.VerifyNoOtherCalls();
         //}
 
-        //[Theory]
-        //[InlineData(null)]
-        //[InlineData("")]
-        //[InlineData(" ")]
-        //public async Task ShouldThrowValidationExceptionOnAddIfCustomerIsInvalidAndLogItAsync(
-        //   string invalidText)
-        //{
-        //    //given
-        //    var invalidCustomer = new Customer
-        //    {
-        //        FirstName = invalidText,
-        //        LastName = invalidText,
-        //        Email = invalidText,
-        //        Phone = invalidText,
-        //    };
-        //    var invalidCustomerExeption = 
-        //        new NullCustomerException();
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData(" ")]
+        public async Task ShouldThrowValidationExceptionOnAddIfCustomerIsInvalidAndLogItAsync(
+           string invalidText)
+        {
+            //given
+            var invalidCustomer = new Customer
+            {
+                FirstName = invalidText,
+                LastName = invalidText,
+                Email = invalidText,
+                Phone = invalidText,
+            };
+            var invalidCustomerExeption =
+                new InvalidCustomerException();
 
-        //    invalidCustomerExeption.AddData(
-        //        key: nameof(Customer.Id),
-        //        values: "Id is required");
+            invalidCustomerExeption.AddData(
+                key: nameof(Customer.Id),
+                values: "Id is required");
 
-        //    invalidCustomerExeption.AddData(
-        //       key: nameof(Customer.FirstName),
-        //       values: "Text is required");
+            invalidCustomerExeption.AddData(
+               key: nameof(Customer.FirstName),
+               values: "Text is required");
 
-        //    invalidCustomerExeption.AddData(
-        //      key: nameof(Customer.LastName),
-        //      values: "Text is required");
+            invalidCustomerExeption.AddData(
+              key: nameof(Customer.LastName),
+              values: "Text is required");
 
-        //    invalidCustomerExeption.AddData(
-        //     key: nameof(Customer.Email),
-        //     values: "Text is required");
+            invalidCustomerExeption.AddData(
+             key: nameof(Customer.Email),
+             values: "Text is required");
 
-        //    invalidCustomerExeption.AddData(
-        //     key: nameof(Customer.Phone),
-        //     values: "Text is required");
+            invalidCustomerExeption.AddData(
+             key: nameof(Customer.Phone),
+             values: "Text is required");
 
-        //    invalidCustomerExeption.AddData(
-        //    key: nameof(Customer.CreatedDate),
-        //    values: "Date is required");
+            invalidCustomerExeption.AddData(
+            key: nameof(Customer.CreatedDate),
+            values: "Date is required");
 
-        //    var expectedCustomerValidationException =
-        //       new CustomerValidationException(invalidCustomerExeption);
+            var expectedCustomerValidationException =
+               new CustomerValidationException(invalidCustomerExeption);
 
-        //    // when
-        //    ValueTask<Customer> addTenatAsync =
-        //        this.customerService.AddCustomerAsync(invalidCustomer);
+            // when
+            ValueTask<Customer> addTenatAsync =
+                this.customerService.AddCustomerAsync(invalidCustomer);
 
-        //    // then
-        //    await Assert.ThrowsAsync<CustomerValidationException>(() =>
-        //        addTenatAsync.AsTask());
+            // then
+            await Assert.ThrowsAsync<CustomerValidationException>(() =>
+                addTenatAsync.AsTask());
 
-        //    this.loggingBrokerMock.Verify(broker =>
-        //        broker.LogError(It.Is(SameExceptionAs(
-        //            expectedCustomerValidationException))),
-        //                Times.Once());
+            this.loggingBrokerMock.Verify(broker =>
+                broker.LogError(It.Is(SameExceptionAs(
+                    expectedCustomerValidationException))),
+                        Times.Once());
 
-        //    this.storageBrokerMock.Verify(broker =>
-        //        broker.InsertCustomerAsync(invalidCustomer),
-        //            Times.Never);
+            this.storageBrokerMock.Verify(broker =>
+                broker.InsertCustomerAsync(invalidCustomer),
+                    Times.Never);
 
-        //    this.loggingBrokerMock.VerifyNoOtherCalls();
-        //    this.storageBrokerMock.VerifyNoOtherCalls();
+            this.loggingBrokerMock.VerifyNoOtherCalls();
+            this.storageBrokerMock.VerifyNoOtherCalls();
 
-        //}
+        }
     }
 }

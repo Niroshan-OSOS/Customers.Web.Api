@@ -10,7 +10,7 @@ namespace Customers.Web.Api.Services.Customers
             ValidateCustomerIsNotNull(customer);
             
             Validate(
-                (Rule: IsInvalid(customer.Id), Parameter: nameof(Customer.Id)),
+               
                 (Rule: IsInvalid(customer.FirstName), Parameter: nameof(Customer.FirstName)),
                 (Rule: IsInvalid(customer.LastName), Parameter: nameof(Customer.LastName)),
                 (Rule: IsInvalid(customer.Email), Parameter: nameof(Customer.Email)),
