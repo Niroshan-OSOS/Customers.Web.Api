@@ -38,7 +38,11 @@ namespace Customers.Web.Api.Services.Customers
             }
             catch (NpgsqlException npgsqlException)
             {
-               throw new NotImplementedException(); 
+                var failedCustomerStorageException =
+                     new FailedCustomerStorageException(npgsqlException);
+
+                throw CreateAndLogCriticalDependencyException(failedCustomerStorageException);
+
             }
             catch (DbUpdateConcurrencyException dbUpdateConcurrencyException)
             {
