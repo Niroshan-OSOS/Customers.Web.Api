@@ -21,9 +21,9 @@ namespace Customers.Web.Api.Tests.Unit.Services.Foundations.Customers
             Customer insertedCustomer = inputCustomer;
             Customer expectedCustomer = insertedCustomer;
 
-            //this.dateTimeBrokerMock.Setup(broker =>
-            //   broker.GetCurrentDateTimeOffset())
-            //       .Returns(randomCustomer.CreatedDate);
+            this.dateTimeBrokerMock.Setup(broker =>
+               broker.GetCurrentDateTimeOffset())
+                   .Returns(randomCustomer.CreatedDate);
 
             this.storageBrokerMock.Setup(broker =>
                 broker.InsertCustomerAsync(inputCustomer))
@@ -37,9 +37,9 @@ namespace Customers.Web.Api.Tests.Unit.Services.Foundations.Customers
             //then
             actualCustomer.Should().BeEquivalentTo(expectedCustomer);
 
-            //this.dateTimeBrokerMock.Verify(broker=>
-            //broker.GetCurrentDateTimeOffset(),
-            //Times.Once);
+            this.dateTimeBrokerMock.Verify(broker =>
+            broker.GetCurrentDateTimeOffset(),
+            Times.Once);
 
             this.storageBrokerMock.Verify(broker=>
             broker.InsertCustomerAsync(inputCustomer), 

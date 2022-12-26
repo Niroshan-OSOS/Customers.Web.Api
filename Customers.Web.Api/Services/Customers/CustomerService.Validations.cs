@@ -8,7 +8,7 @@ namespace Customers.Web.Api.Services.Customers
         private void ValidateCustomerOnAdd(Customer customer) 
         {
             ValidateCustomerIsNotNull(customer);
-            /*
+            
             Validate(
                 (Rule: IsInvalid(customer.Id), Parameter: nameof(Customer.Id)),
                 (Rule: IsInvalid(customer.FirstName), Parameter: nameof(Customer.FirstName)),
@@ -16,9 +16,8 @@ namespace Customers.Web.Api.Services.Customers
                 (Rule: IsInvalid(customer.Email), Parameter: nameof(Customer.Email)),
                 (Rule: IsInvalid(customer.Phone), Parameter: nameof(Customer.Phone)),
                 (Rule: IsValidX(customer.CreatedDate), Parameter: nameof(Customer.CreatedDate)),
-
                 (Rule: IsNotRecent(customer.CreatedDate), Parameter: nameof(Customer.CreatedDate)));
-            */
+            
         }
 
 

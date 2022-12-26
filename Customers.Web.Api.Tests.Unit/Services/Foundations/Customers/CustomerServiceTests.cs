@@ -4,10 +4,12 @@ using Customers.Web.Api.Brokers.Storages;
 using Customers.Web.Api.Models.Customers;
 using Customers.Web.Api.Services.Customers;
 using Moq;
+using Npgsql;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using Tynamix.ObjectFiller;
@@ -51,5 +53,24 @@ namespace Customers.Web.Api.Tests.Unit.Services.Foundations.Customers
         private static Expression<Func<Xeption, bool>> SameExceptionAs(Xeption expectedException) =>
            actualException => actualException.SameExceptionAs(expectedException);
 
+        private static int GetRandomNumber() =>
+           new IntRange(min: 2, max: 10).GetValue();
+
+        public static TheoryData MinutesBeforeOrAfter()
+        {
+            int randomNumber = GetRandomNumber();
+            int randomNegativeNumber = GetRandomNegativeNumber();
+
+            return new TheoryData<int>
+            {
+                randomNumber,
+                randomNegativeNumber
+            };
+        }
+        private static int GetRandomNegativeNumber() =>
+           -1 * new IntRange(min: 2, max: 10).GetValue();
+
+        private static NpgsqlException GetNpsqlException() =>
+            (NpgsqlException)FormatterServices.GetSafeUninitializedObject(typeof(NpgsqlException));
     }
 }
